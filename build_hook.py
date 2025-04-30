@@ -71,4 +71,6 @@ class CustomBuildHook(BuildHookInterface):
 
         build_data["pure_python"] = False
         build_data["infer_tag"] = False
-        build_data["tag"] = f"py3-none-{sysconfig.get_platform().replace('-', '_')}"
+        build_data["tag"] = (
+            f"py3-none-{sysconfig.get_platform().replace('-', '_').replace('.', '_')}"
+        )
