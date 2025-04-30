@@ -74,3 +74,5 @@ class CustomBuildHook(BuildHookInterface):
         build_data["tag"] = (
             f"py3-none-{sysconfig.get_platform().replace('-', '_').replace('.', '_')}"
         )
+
+runtool.selection = lambda x: x[0]
