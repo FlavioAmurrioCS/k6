@@ -22,6 +22,7 @@ jobs:
       - name: Build wheels
         env:
           MACOSX_DEPLOYMENT_TARGET: 11.0
+          CIBW_BUILD: "cp39-*"
         run: python -m cibuildwheel --output-dir wheelhouse
         # to supply options, put them in 'env', like:
         # env:
