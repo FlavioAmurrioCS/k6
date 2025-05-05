@@ -66,7 +66,7 @@ class CustomBuildHook(BuildHookInterface):
         executable = self.tool.get_executable()
 
         # Check that the executable is available
-        subprocess.run((executable,"--help"), check=True, capture_output=True)  # noqa: S603
+        subprocess.run((executable, "--help"), check=True, capture_output=True)  # noqa: S603
 
         build_data["shared_scripts"].update(
             {
