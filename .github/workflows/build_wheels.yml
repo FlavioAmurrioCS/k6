@@ -63,6 +63,8 @@ jobs:
           CIBW_ARCHS: ${{ matrix.archs }}
           CIBW_BUILD: "cp39-*"
           MACOSX_DEPLOYMENT_TARGET: 11.0
+          CIBW_TEST_COMMAND: |
+            k6 --help
           # CIBW_ARCHS_LINUX: x86_64 aarch64
           # CIBW_ARCHS_MACOS: x86_64 arm64
           # CIBW_ARCHS_WINDOWS: AMD64
