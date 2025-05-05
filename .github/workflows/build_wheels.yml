@@ -63,6 +63,8 @@ jobs:
           CIBW_ARCHS: ${{ matrix.archs }}
           CIBW_BUILD: "cp39-*"
           MACOSX_DEPLOYMENT_TARGET: 11.0
+          CIBW_TEST_COMMAND: |
+            k6 --help
           # CIBW_ARCHS_LINUX: x86_64 aarch64
           # CIBW_ARCHS_MACOS: x86_64 arm64
           # CIBW_ARCHS_WINDOWS: AMD64
@@ -91,26 +93,27 @@ jobs:
   #         name: cibw-sdist
   #         path: dist/*.tar.gz
 
-  # upload_pypi:
-  #   needs: [
-  #     build_wheels,
-  #     # build_sdist
-  #     ]
-  #   runs-on: ubuntu-latest
-  #   environment: pypi
-  #   permissions:
-  #     id-token: write
-  #   if: github.event_name == 'release' && github.event.action == 'published'
-  #   # or, alternatively, upload to PyPI on every tag starting with 'v' (remove on: release above to use this)
-  #   # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-  #   steps:
-  #     - uses: actions/download-artifact@v4
-  #       with:
-  #         # unpacks all CIBW artifacts into dist/
-  #         pattern: cibw-*
-  #         path: dist
-  #         merge-multiple: true
+  upload_pypi:
+    needs: [
+      build_wheels,
+      # build_sdist
+      ]
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    if: github.event_name == 'release' && github.event.action == 'published'
+    # or, alternatively, upload to PyPI on every tag starting with 'v' (remove on: release above to use this)
+    # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          # unpacks all CIBW artifacts into dist/
+          pattern: cibw-*
+          path: dist
+          merge-multiple: true
 
-  #     - uses: pypa/gh-action-pypi-publish@release/v1
-  #       with:
-  #         # To test: repository-url: https://test.pypi.org/legacy/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          # To test:
+            repository-url: https://test.pypi.org/legacy/
