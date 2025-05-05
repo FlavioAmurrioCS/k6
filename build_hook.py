@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import atexit
 import os
+import subprocess
 import sysconfig
 import tempfile
 from typing import TYPE_CHECKING
@@ -62,10 +63,14 @@ class CustomBuildHook(BuildHookInterface):
     def initialize(self, version: str, build_data: BuildData) -> None:  # pyright: ignore[reportIncompatibleMethodOverride] # noqa: ARG002
         if self.target_name != "wheel":
             return
+        executable = self.tool.get_executable()
+
+        # Check that the executable is available
+        subprocess.run((executable,"--help"), check=True, capture_output=True)  # noqa: S603
 
         build_data["shared_scripts"].update(
             {
-                self.tool.get_executable(): "k6",
+                executable: "k6",
             }
         )
 
