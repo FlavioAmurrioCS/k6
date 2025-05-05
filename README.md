@@ -16,6 +16,3 @@
 pip install k6
 ```
 
-## License
-
-`k6` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
