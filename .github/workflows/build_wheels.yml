@@ -35,8 +35,7 @@ jobs:
             # macos-13 was the last x86_64 runner
             runs-on: macos-13
             archs: x86_64
-            env:
-              MACOSX_DEPLOYMENT_TARGET: "11.0"
+
           - os: macos-arm
             # macos-14+ (including latest) are ARM64 runners
             runs-on: macos-latest
@@ -57,6 +56,7 @@ jobs:
           CIBW_PLATFORM: ${{ matrix.platform }}
           CIBW_ARCHS: ${{ matrix.archs }}
           CIBW_BUILD: "cp39-*"
+          MACOSX_DEPLOYMENT_TARGET: 11.0
           # CIBW_ARCHS_LINUX: x86_64 aarch64
           # CIBW_ARCHS_MACOS: x86_64 arm64
           # CIBW_ARCHS_WINDOWS: AMD64
