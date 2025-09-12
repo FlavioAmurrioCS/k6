@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "k6"
-version = "v0.57.0"
+version = "v1.1.0"
 # dynamic = ["version"]
 # description = ''
 # readme = "README.md"
