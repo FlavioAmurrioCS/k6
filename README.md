@@ -15,4 +15,3 @@
 ```console
 pip install k6
 ```
-
